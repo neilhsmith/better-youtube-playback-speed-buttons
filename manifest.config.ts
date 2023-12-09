@@ -8,7 +8,7 @@ export default defineManifest(async () => ({
   content_scripts: [
     {
       matches: ["*://*.youtube.com/*"],
-      js: ["src/inject.ts"],
+      js: ["src/test.ts"],
     },
   ],
 }))
