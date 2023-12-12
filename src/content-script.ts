@@ -6,12 +6,6 @@ import { ButtonsControl } from "./controls/buttons-control"
 import { VideoControl } from "./controls/video-control"
 import { isDefaultYoutubeSpeed } from "./utils/youtube"
 
-/**
- * TODO:
- * - bugs
- *   - when a custom value is selected (only for the 1st time), the speed-panel won't select select Normal
- */
-
 const settings: Settings = {
   maxSpeed: 3,
   minSpeed: 0.25,
@@ -41,7 +35,7 @@ function initialize(ytpSettingsMenu: Element, metaSection: Element, video: HTMLV
     metaSection.insertAdjacentElement("afterbegin", control)
   )
 
-  speedPanel.onCustomItemClick = update
+  speedPanel.onChange = update
   customSpeedPanel.onChange = update
   videoControl.onRateChange = update
   buttonsControl.onNeutralClick = () => update(1)

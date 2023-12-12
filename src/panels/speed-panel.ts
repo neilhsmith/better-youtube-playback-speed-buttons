@@ -1,6 +1,6 @@
 import { isDefaultYoutubeSpeed } from "../utils/youtube"
 
-type OnClickAction = (value: number) => void
+type OnChangeAction = (value: number) => void
 
 export class SpeedPanel {
   private customMenuItem = document.createElement("div")
@@ -11,7 +11,7 @@ export class SpeedPanel {
 
   public speed: number | undefined
   public lastCustomSpeed: number | undefined
-  public onCustomItemClick: OnClickAction | undefined
+  public onChange: OnChangeAction | undefined
 
   get active() {
     return !!this.menuElement
@@ -35,7 +35,7 @@ export class SpeedPanel {
       const substring = label.substring(label.indexOf("(") + 1, label.indexOf(")"))
       const value = Number(substring)
 
-      this.onCustomItemClick && this.onCustomItemClick(value)
+      this.onChange && this.onChange(value)
 
       const backButton = ytpSettingsMenu.querySelector<HTMLButtonElement>(".ytp-panel-back-button")
       backButton && backButton.click()
@@ -78,6 +78,17 @@ export class SpeedPanel {
     }
   }
 
+  private handleMenuElementClick = (e: Event) => {
+    // idk why it happens but there's a bug where the Normal menuitem will not be selected
+    // whenever a custom speed is selected for the first time. this handler will listen
+    // for normal clicks and manually send an onChange with a speed of 1
+
+    const element = e.target as Element
+    if (element?.textContent === "Normal") {
+      this.onChange && this.onChange(1)
+    }
+  }
+
   private handleMutations = (mutations: MutationRecord[]) => {
     for (const mutation of mutations) {
       for (const node of mutation.addedNodes) {
@@ -91,8 +102,10 @@ export class SpeedPanel {
         if (hasExpectedPanelTitle) {
           const menuElement = element.querySelector(".ytp-panel-menu")
           this.menuElement = menuElement
+          this.menuElement?.addEventListener("click", this.handleMenuElementClick, true)
           this.render()
         } else {
+          this.menuElement?.removeEventListener("click", this.handleMenuElementClick, true)
           this.menuElement = null
         }
       }
