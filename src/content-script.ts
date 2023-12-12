@@ -76,7 +76,7 @@ function update(value: number) {
 const ytpSettingsMenu = document.querySelector(".ytp-settings-menu")
 if (ytpSettingsMenu) {
   // initializes the content script once the video and meta sections are loaded
-  const startupObserver = new MutationObserver(function (mutations, instance) {
+  const startupObserver = new MutationObserver(function (_, instance) {
     const metaSection = document.getElementById("above-the-fold")
     const video = document.getElementsByTagName("video")
 

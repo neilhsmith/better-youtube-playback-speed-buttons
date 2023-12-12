@@ -9,6 +9,7 @@ export default defineManifest(async () => ({
     {
       matches: ["*://*.youtube.com/*"],
       js: ["src/content-script.ts"],
+      css: ["src/styles.css"],
     },
   ],
 }))
