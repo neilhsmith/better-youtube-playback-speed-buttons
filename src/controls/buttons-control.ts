@@ -28,9 +28,11 @@ export class ButtonsControl {
     this.negBtn.addEventListener("click", () => this.onNegativeClick && this.onNegativeClick())
 
     this.posBtn.ariaLabel = "Increase video playback speed"
-    this.negBtn.className = "pos-btn"
+    this.posBtn.className = "pos-btn"
     this.posBtn.textContent = "+"
     this.posBtn.addEventListener("click", () => this.onPositiveClick && this.onPositiveClick())
+
+    this.control.className = "bypsb"
 
     this.control.appendChild(this.negBtn)
     this.control.appendChild(this.labelBtn)

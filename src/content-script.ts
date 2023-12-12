@@ -5,6 +5,7 @@ import { SpeedPanel } from "./panels/speed-panel"
 import { ButtonsControl } from "./controls/buttons-control"
 import { VideoControl } from "./controls/video-control"
 import { isDefaultYoutubeSpeed } from "./utils/youtube"
+import "./styles.css"
 
 const settings: Settings = {
   maxSpeed: 3,
