@@ -1,7 +1,7 @@
 import { Settings } from "../types"
 
 type InitAction = (buttonsControl: Element) => void
-type ClickAction = () => void
+type ClickCallback = () => void
 
 export class ButtonsControl {
   private readonly control = document.createElement("div")
@@ -9,9 +9,9 @@ export class ButtonsControl {
   private readonly negBtn = document.createElement("button")
   private readonly posBtn = document.createElement("button")
 
-  public onNeutralClick: ClickAction | undefined
-  public onNegativeClick: ClickAction | undefined
-  public onPositiveClick: ClickAction | undefined
+  public onNeutralClick: ClickCallback | undefined
+  public onNegativeClick: ClickCallback | undefined
+  public onPositiveClick: ClickCallback | undefined
 
   constructor(
     value: number,
@@ -36,18 +36,18 @@ export class ButtonsControl {
     this.control.appendChild(this.labelBtn)
     this.control.appendChild(this.posBtn)
 
-    this.setSpeed(value)
+    this.setValue(value)
     this.appendControlAction(this.control)
   }
 
-  setSpeed(speed: number) {
-    this.labelBtn.textContent = `${speed}x`
+  setValue(value: number) {
+    this.labelBtn.textContent = `${value}x`
 
-    const canDecrease = speed > this.settings.minSpeed
+    const canDecrease = value > this.settings.minSpeed
     this.negBtn.disabled = canDecrease ? false : true
     this.negBtn.ariaDisabled = canDecrease ? "false" : "true"
 
-    const canIncrease = speed < this.settings.maxSpeed
+    const canIncrease = value < this.settings.maxSpeed
     this.posBtn.disabled = canIncrease ? false : true
     this.posBtn.ariaDisabled = canIncrease ? "false" : "true"
   }

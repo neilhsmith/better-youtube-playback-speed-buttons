@@ -33,8 +33,9 @@ export class PlaybackSpeedMenu {
     this.element = getMenu(container)
     this.setValue(value)
 
-    const observer = new MutationObserver(() => {
+    const observer = new MutationObserver((mutations) => {
       this.element = getMenu(container)
+      console.log("mmmhhhmmmm", mutations)
       this.renderValue()
     })
     observer.observe(container, {
@@ -67,6 +68,7 @@ export class PlaybackSpeedMenu {
       ?.remove()
 
     const selectedLabel = this.value === 1 ? "normal" : this.value.toString()
+    console.log("tt", selectedLabel)
 
     for (const menuItem of menuItems) {
       const labelValue = menuItem.querySelector(".ytp-menuitem-label")?.textContent?.toLowerCase()
@@ -76,7 +78,7 @@ export class PlaybackSpeedMenu {
     if (this.lastCustomValue !== undefined) {
       const isDefaultSpeed = isDefaultYoutubeSpeed(this.value)
       this.customMenuItem.ariaChecked = isDefaultSpeed ? "false" : "true"
-      this.customMenuItemLabel.textContent = `Content (${this.lastCustomValue})`
+      this.customMenuItemLabel.textContent = `Custom (${this.lastCustomValue})`
 
       if (!document.body.contains(this.customMenuItem)) {
         this.element.insertAdjacentElement("afterbegin", this.customMenuItem)

@@ -10,7 +10,7 @@ export class VideoControl {
     )
   }
 
-  setSpeed(speed: number) {
-    this.element.playbackRate = speed
+  setValue(value: number) {
+    this.element.playbackRate = value
   }
 }
