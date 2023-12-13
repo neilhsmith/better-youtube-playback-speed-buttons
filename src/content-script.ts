@@ -32,9 +32,10 @@ function initialize(ytpSettingsMenu: Element, metaSection: Element, video: HTMLV
   speedPanel = new SpeedPanel(speed, lastCustomSpeed, ytpSettingsMenu)
   customSpeedPanel = new CustomSpeedPanel(speed, ytpSettingsMenu, settings)
   videoControl = new VideoControl(video)
-  buttonsControl = new ButtonsControl(speed, settings, (control) =>
-    metaSection.insertAdjacentElement("afterbegin", control)
-  )
+  buttonsControl = new ButtonsControl(speed, settings, (control) => {
+    const title = metaSection.querySelector("#title h1")
+    title?.insertAdjacentElement("beforeend", control)
+  })
 
   speedPanel.onChange = update
   customSpeedPanel.onChange = update
