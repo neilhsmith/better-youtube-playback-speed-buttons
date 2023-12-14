@@ -6,6 +6,12 @@ import { ButtonsControl } from "./controls/buttons-control"
 import { VideoControl } from "./controls/video-control"
 import { isDefaultYoutubeSpeed } from "./utils/youtube"
 
+/**
+ * TODO:
+ * - can't select normal when a custom item is selected for the first time
+ * - doesnt render until 1st reload
+ */
+
 const settings: Settings = {
   maxSpeed: 3,
   minSpeed: 0.25,
