@@ -1,7 +1,18 @@
+import { resolve } from "path"
 import { defineConfig } from "vite"
-import { crx } from "@crxjs/vite-plugin"
-import defineManifest from "./manifest.config"
 
 export default defineConfig({
-  plugins: [crx({ manifest: defineManifest })],
+  build: {
+    lib: {
+      entry: resolve(__dirname, "src/content-script.ts"),
+      name: "ContentScript",
+      fileName: "content-script",
+    },
+    rollupOptions: {
+      external: [],
+      output: {
+        globals: {},
+      },
+    },
+  },
 })

@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Better Youtube Playback Speed Buttons",
+  "version": "1.0.0",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content-script.js"]
+    }
+  ],
+  "host_permissions": ["*://*.youtube.com/*"]
+}

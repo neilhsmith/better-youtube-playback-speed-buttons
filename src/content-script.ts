@@ -5,7 +5,6 @@ import { SpeedPanel } from "./panels/speed-panel"
 import { ButtonsControl } from "./controls/buttons-control"
 import { VideoControl } from "./controls/video-control"
 import { isDefaultYoutubeSpeed } from "./utils/youtube"
-import "./styles.css"
 
 const settings: Settings = {
   maxSpeed: 3,
@@ -77,6 +76,81 @@ function update(value: number) {
 // the parent of all the video menu's we'll interact with
 const ytpSettingsMenu = document.querySelector(".ytp-settings-menu")
 if (ytpSettingsMenu) {
+  const stylesheet = document.createElement("style")
+  stylesheet.innerText = `
+  .bypsb {
+    display: flex;
+    flex-direction: row;
+    height: 36px;
+    color: #0f0f0f;
+
+    .neg-btn,
+    .pos-btn,
+    .label-btn {
+      background: rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      border: 0;
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: "Roboto", "Arial", sans-serif;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      &:active {
+        background: rgba(0, 0, 0, 0.25);
+      }
+      &:focus-visible {
+        background: rgb(255, 255, 255);
+      }
+    }
+
+    .neg-btn,
+    .pos-btn {
+      position: relative;
+      padding: 10px 16px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        height: 24px;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.1);
+      }
+    }
+    .neg-btn {
+      border-radius: 18px 0 0 18px;
+
+      &::before {
+        right: 0;
+      }
+    }
+    .pos-btn {
+      border-radius: 0 18px 18px 0;
+
+      &::before {
+        left: 0;
+      }
+    }
+
+    .label-btn {
+      padding: 10px 12px;
+      min-width: 60px;
+    }
+  }
+
+  #above-the-fold #title h1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  `
+  document.head.appendChild(stylesheet)
+
   // initializes the content script once the video and meta sections are loaded
   const startupObserver = new MutationObserver(function (_, instance) {
     const metaSection = document.getElementById("above-the-fold")
